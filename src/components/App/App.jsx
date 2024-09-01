@@ -20,8 +20,9 @@ export default function App() {
   const [totalPages, setTotalPages] = useState(999);
    const loadMoreRef = useRef();
 
-  function openModal(image) {
+  function openModal(image, index) {
     setSelectedImage(image);
+    setSelectedImageIndex(index);
     setIsOpen(true);
   }
 
@@ -90,7 +91,7 @@ export default function App() {
   }, [images]);
 
   
-  const showNextImage = () => {
+ const showNextImage = () => {
     if (selectedImageIndex < images.length - 1) {
       const newIndex = selectedImageIndex + 1;
       setSelectedImageIndex(newIndex);
