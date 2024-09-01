@@ -32,7 +32,10 @@ export default function ImageModal({images, modalIsOpen, closeModal, selectedIma
         {selectedImage && (
           <div className={css.modal}>
               <img src={selectedImage.urls.regular} alt={selectedImage.alt_description} className={css.img } />
-          <div className={css.likes}>Likes: {selectedImage.likes}</div>
+          <div className={css.container }>
+          <div className={css.author}>Author: {selectedImage.user.name}</div>
+            <div className={css.likes}>Likes: {selectedImage.likes}</div>
+            </div>
           <div className={css.buttonContainer}>
               <button onClick={showPreviousImage} disabled={selectedImageIndex === 0} className={css.previous}>
                 Previous
