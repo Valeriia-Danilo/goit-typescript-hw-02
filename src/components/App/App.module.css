@@ -1,0 +1,14 @@
+.loaderContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.container {
+  padding: 20px;
+}
+
+.noMoreImagesText {
+  font-size: 20px;
+  color: black;
+  text-align: center;
+}

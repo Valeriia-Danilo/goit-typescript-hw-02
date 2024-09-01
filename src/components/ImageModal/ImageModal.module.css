@@ -1,0 +1,136 @@
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ff4d4d;
+  border: none;
+  padding: 0;
+  margin: 0;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  box-shadow: 0 4px 6px rgba(255, 77, 77, 0.4), 0 1px 3px rgba(255, 77, 77, 0.2);
+  transition: box-shadow 0.3s ease, transform 0.3s ease,
+    background-color 0.3s ease;
+  cursor: pointer;
+}
+
+.button:hover {
+  box-shadow: 0 8px 10px rgba(255, 77, 77, 0.6),
+    0 4px 5px rgba(255, 77, 77, 0.3);
+  transform: translateY(-2px);
+  background-color: #ff6666;
+}
+
+.button:active {
+  box-shadow: 0 2px 4px rgba(255, 77, 77, 0.6), 0 1px 2px rgba(255, 77, 77, 0.4);
+  transform: translateY(0);
+}
+
+.closeIcon {
+  stroke: 1px;
+  color: #f0f0f0;
+  position: relative;
+  width: 45px;
+  height: 45px;
+}
+
+.closeIcon::before,
+.closeIcon::after {
+  content: "";
+  position: absolute;
+  width: 2px;
+  height: 24px;
+  background-color: #fff;
+  transition: background-color 0.3s ease;
+}
+
+.closeIcon::before {
+  transform: rotate(45deg);
+  left: 11px;
+}
+
+.closeIcon::after {
+  transform: rotate(-45deg);
+  left: 11px;
+}
+
+.button:hover .closeIcon::before,
+.button:hover .closeIcon::after {
+  background-color: #f0f0f0;
+}
+
+.img {
+  width: 100%;
+  height: 800px;
+  object-fit: contain;
+}
+
+.buttonContainer {
+  padding-top: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.modal {
+  padding: 20px;
+  margin: 0 auto;
+  max-width: 1200px;
+}
+
+.previous,
+.next {
+  width: 110px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #28a745;
+  border: none;
+  padding: 10px;
+  margin: 0;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  text-transform: uppercase;
+  box-shadow: 0 4px 6px rgba(40, 167, 69, 0.4), 0 1px 3px rgba(40, 167, 69, 0.2);
+  transition: box-shadow 0.3s ease, transform 0.3s ease,
+    background-color 0.3s ease;
+  cursor: pointer;
+}
+
+.previous:hover,
+.next:hover {
+  box-shadow: 0 8px 10px rgba(40, 167, 69, 0.6),
+    0 4px 5px rgba(40, 167, 69, 0.3);
+  transform: translateY(-2px);
+  background-color: #34c759;
+}
+
+.previous:active,
+.next:active {
+  box-shadow: 0 2px 4px rgba(40, 167, 69, 0.6), 0 1px 2px rgba(40, 167, 69, 0.4);
+  transform: translateY(0);
+}
+
+.previous:disabled,
+.next:disabled {
+  background-color: #b0b0b0;
+  color: #e0e0e0;
+  box-shadow: none;
+  transform: none;
+}
+
+.previous:disabled::before,
+.next:disabled::after {
+  color: #e0e0e0;
+}
+
+.likes {
+  text-align: center;
+  color: #000000;
+  font-size: 25px;
+}
