@@ -6,10 +6,9 @@ Modal.setAppElement('#root');
 
 const customStyles = {
   content: {
-    width: '1200px',
-    padding: '0px',
+    width: '50%',
+    padding: '20px',
     top: '50%',
-    overflow: 'hidden',
     left: '50%',
     right: 'auto',
     bottom: 'auto',
@@ -30,12 +29,14 @@ export default function ImageModal({images, modalIsOpen, closeModal, selectedIma
         contentLabel="Example Modal"
       >
         {selectedImage && (
-          <div className={css.modal}>
+        <div className={css.modal}>
+          <div className={css.imageContainer}>
               <img src={selectedImage.urls.regular} alt={selectedImage.alt_description} className={css.img } />
-          <div className={css.container }>
+          <div className={css.container}>
           <div className={css.author}>Author: {selectedImage.user.name}</div>
             <div className={css.likes}>Likes: {selectedImage.likes}</div>
             </div>
+          </div>
           <div className={css.buttonContainer}>
               <button onClick={showPreviousImage} disabled={selectedImageIndex === 0} className={css.previous}>
                 Previous

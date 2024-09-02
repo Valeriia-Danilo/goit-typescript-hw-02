@@ -4,10 +4,12 @@ import css from './App.module.css'
 import SearchBar from '../SearchBar/Searchbar';
 import ImageGallery from '../ImageGallery/ImageGallery';
 import { fetchImages } from '../../services/gallery-api';
-import { ThreeDots } from 'react-loader-spinner';
 import ImageModal from '../ImageModal/ImageModal';
-import toast, { Toaster } from 'react-hot-toast';
 import LoadMoreBtn from '../LoadMoreBtn/LoadMoreBtn';
+import ErrorMessage from '../ErrorMessage/ErrorMessage';
+import { Toaster } from 'react-hot-toast';
+import Loader from '../Loader/Loader';
+
 
 
 export default function App() {
@@ -36,11 +38,6 @@ export default function App() {
   const [images, setImages] = useState([]);
 
   const handleSearch = (newSearch) => {
-    if (!newSearch.trim()) {
-      toast.error('Search query cannot be empty!');
-      setImages([]);
-      return;
-    }
     setSearch(newSearch);
     setImages([]);
     setPage(1);
@@ -61,21 +58,19 @@ export default function App() {
         const res = await fetchImages(search, page);
         
         if (res.images.length === 0 && page === 1) {
-          toast.error('No results found. Please try a different query.');
+          ErrorMessage({ message: 'No results found. Please try a different query' }); 
         } else {
           setImages(prevImages => [...prevImages, ...res.images]);
           setTotalPages(res.totalPages);
-          console.log(res.totalPages);
 
         }
 
       }
       catch {
-        toast.error('Please try again.');
+        ErrorMessage({ message: 'Please try again' }); 
       }
       finally {
         setLoading(false);
-        console.log(2)
       }
     }
 
@@ -91,7 +86,7 @@ export default function App() {
   }, [images]);
 
   
- const showNextImage = () => {
+  const showNextImage = () => {
     if (selectedImageIndex < images.length - 1) {
       const newIndex = selectedImageIndex + 1;
       setSelectedImageIndex(newIndex);
@@ -116,20 +111,9 @@ export default function App() {
   return (
     <div>
       <SearchBar onSearch={handleSearch} />
-      <Toaster position="top-right" />
       <ImageGallery images={images} onImageClick={openModal}/>
         
-      {loading && <div className={css.loaderContainer}><ThreeDots
-        visible={true}
-        height="80"
-        width="80"
-        color="#4fa94d"
-        radius="9"
-        ariaLabel="three-dots-loading"
-        wrapperStyle={{}}
-        wrapperClass=""
-  
-      /></div>}
+      {loading && <Loader/>}
       
       {images.length > 0 && !loading && (
         page < totalPages ?
@@ -140,7 +124,10 @@ export default function App() {
     </div>
       )}
       
-
+<Toaster
+  position="top-right"
+  reverseOrder={false}
+/>
         <ImageModal
           modalIsOpen={modalIsOpen}
           closeModal={closeModal}

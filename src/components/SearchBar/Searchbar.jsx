@@ -1,14 +1,21 @@
 import { useId } from "react";
 import { BsSearch } from "react-icons/bs";
 import css from './SearchBar.module.css';
+import ErrorMessage from '../ErrorMessage/ErrorMessage';
 
 export default function SearchBar({ onSearch }) {
     const id = useId();
 
     const handleSubmit = (event) => {
         event.preventDefault();
+        const inputValue = event.target.elements.inputValue.value.trim();
 
-        onSearch(event.target.elements.inputValue.value);
+        if (!inputValue) {
+            ErrorMessage({ message: 'Please enter a search term' }); 
+            return; 
+        }
+
+        onSearch(inputValue);
         
         event.target.reset();
     }
