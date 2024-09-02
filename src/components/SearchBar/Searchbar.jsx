@@ -12,6 +12,7 @@ export default function SearchBar({ onSearch }) {
 
         if (!inputValue) {
             ErrorMessage({ message: 'Please enter a search term' }); 
+            onSearch('');
             return; 
         }
 
