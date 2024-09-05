@@ -20,6 +20,7 @@ export default function App() {
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(999);
+  const [error, setError] = useState(false);
    const loadMoreRef = useRef();
 
   function openModal(image, index) {
@@ -42,6 +43,7 @@ export default function App() {
     setImages([]);
     setPage(1);
     setTotalPages(0);
+    setError(false);
   }
   
 
@@ -58,19 +60,22 @@ export default function App() {
         const res = await fetchImages(search, page);
         
         if (res.images.length === 0 && page === 1) {
-          ErrorMessage({ message: 'No results found. Please try a different query' }); 
+          setError(true);
         } else {
           setImages(prevImages => [...prevImages, ...res.images]);
           setTotalPages(res.totalPages);
+          setError(false);
+          
 
         }
 
       }
       catch {
-        ErrorMessage({ message: 'Please try again' }); 
+        setError(true);
       }
       finally {
         setLoading(false);
+
       }
     }
 
@@ -110,10 +115,12 @@ export default function App() {
 
   return (
     <div>
-      <SearchBar onSearch={handleSearch} />
+      <SearchBar onSearch={handleSearch}/>
       <ImageGallery images={images} onImageClick={openModal}/>
         
-      {loading && <Loader/>}
+      {loading && <Loader />}
+      
+      {error && <ErrorMessage error={error} />}
       
       {images.length > 0 && !loading && (
         page < totalPages ?
