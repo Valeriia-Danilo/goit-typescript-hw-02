@@ -1,22 +1,29 @@
-import { useId } from "react";
+import { useId, FormEvent, ChangeEvent } from "react";
 import { BsSearch } from "react-icons/bs";
 import css from './SearchBar.module.css';
 import { toast } from 'react-hot-toast';
 
-export default function SearchBar({ onSearch }) {
+interface SearchBarProps {
+  onSearch: (query: string) => void; 
+}
+
+export default function SearchBar({ onSearch }: SearchBarProps) {
     const id = useId();
 
-    const handleSubmit = (event) => {
+    const handleSubmit = (event: FormEvent<HTMLFormElement>)  => {
         event.preventDefault();
-        const inputValue = event.target.elements.inputValue.value.trim();
+        
+    const form = event.target as HTMLFormElement; 
+    const inputValue = form.elements.namedItem("inputValue") as HTMLInputElement;
+    const trimmedValue = inputValue.value.trim();
 
-        if (!inputValue) {
+        if (!trimmedValue) {
             toast.error('Enter a saerch query!');
             onSearch('');
             return; 
         }
-        onSearch(inputValue);
-        event.target.reset();
+        onSearch(trimmedValue);
+        form.reset();
     }
 
     

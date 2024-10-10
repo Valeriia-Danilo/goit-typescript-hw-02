@@ -1,6 +1,7 @@
 import Modal from 'react-modal';
 import css from './ImageModal.module.css';
 import { SlClose } from "react-icons/sl";
+import { ImageModalProps } from '../../types';
 
 Modal.setAppElement('#root');
 
@@ -21,7 +22,15 @@ const customStyles = {
   },
   
 };
-export default function ImageModal({images, modalIsOpen, closeModal, selectedImage, showPreviousImage, selectedImageIndex, showNextImage}) {
+export default function ImageModal({
+  images,
+  modalIsOpen,
+  closeModal,
+  selectedImage,
+  showPreviousImage,
+  selectedImageIndex,
+  showNextImage
+}: ImageModalProps) {
     return <Modal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}

@@ -9,21 +9,27 @@ import LoadMoreBtn from '../LoadMoreBtn/LoadMoreBtn';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
 import { Toaster } from 'react-hot-toast';
 import Loader from '../Loader/Loader';
+import { Image } from '../../types'; 
 
 
 
 export default function App() {
+  
+    interface FetchImagesResponse {
+    images: Image[];
+    totalPages: number;
+  }
 
-  const [modalIsOpen, setIsOpen] = React.useState(false);
-  const [selectedImage, setSelectedImage] = useState(null);
-  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
-  const [loading, setLoading] = useState(false);
-  const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(999);
-  const [error, setError] = useState(false);
-   const loadMoreRef = useRef();
+  const [modalIsOpen, setIsOpen] = React.useState<boolean>(false);
+  const [selectedImage, setSelectedImage] = useState<Image | null>(null);
+  const [selectedImageIndex, setSelectedImageIndex] = useState<number>(0);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [page, setPage] = useState<number>(1);
+  const [totalPages, setTotalPages] = useState<number>(999);
+  const [error, setError] = useState<boolean>(false);
+   const loadMoreRef = useRef<HTMLDivElement | null>(null);
 
-  function openModal(image, index) {
+  function openModal(image: Image, index: number) {
     setSelectedImage(image);
     setSelectedImageIndex(index);
     setIsOpen(true);
@@ -35,10 +41,10 @@ export default function App() {
     setIsOpen(false);
   }
 
-  const [search, setSearch] = useState("");
-  const [images, setImages] = useState([]);
+  const [search, setSearch] = useState<string>('');
+   const [images, setImages] = useState<Image[]>([]);
 
-  const handleSearch = (newSearch) => {
+  const handleSearch = (newSearch: string) => {
     setSearch(newSearch);
     setImages([]);
     setPage(1);
@@ -57,7 +63,7 @@ export default function App() {
     async function searchImages() {
       try {
         setLoading(true);
-        const res = await fetchImages(search, page);
+        const res: FetchImagesResponse = await fetchImages(search, page);
         
         if (res.images.length === 0 && page === 1) {
           setError(true);
@@ -87,6 +93,7 @@ export default function App() {
   useEffect(() => {
     if (loadMoreRef.current && images.length > 0) {
       loadMoreRef.current.scrollIntoView({ behavior: "smooth" });
+
     }
   }, [images]);
 
